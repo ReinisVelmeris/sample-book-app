@@ -4,38 +4,64 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building node application is starting'
+                script{
+                    build()
+                }
             }
         }
         stage('Deploy to dev') {
             steps {
-                echo 'Deploying to DEV'
+                script{
+                    deploy("DEV")
+                }
             }
         }
         stage('Test on DEV') {
             steps {
-                echo 'Testing on DEV'
+                script{
+                    test("DEV")
+                }
             }
         }
         stage('Deploy to STG') {
             steps {
-                echo 'Deploying to DEV'
+                script{
+                    deploy("STG")
+                }
             }
         }
         stage('Test on STG') {
             steps {
-                echo 'Testing on DEV'
+                script{
+                    test("STG")
+                }
             }
         }
         stage('Deploy to PROD') {
             steps {
-                echo 'Deploying to DEV'
+                script{
+                    deploy("PROD")
+                }
             }
         }
         stage('Test on PROD') {
             steps {
-                echo 'Testing on DEV'
+                script{
+                    test("PROD")
+                }
             }
         }
     }
+}
+
+def deploy(String enviroment){
+    echo "Deploying to ${enviroment}"
+}
+
+def test(String enviroment){
+    echo "Testing on ${enviroment}"
+}
+
+def build(){
+    echo "Starting build"
 }

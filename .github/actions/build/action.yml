@@ -1,0 +1,11 @@
+
+runs:
+  using: "composite"
+  steps:
+  
+    - name: Start install
+      run: echo Building of node application is starting
+   
+    - name: install dependencies
+      run: npm install
+      

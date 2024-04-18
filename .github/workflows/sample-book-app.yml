@@ -14,13 +14,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: ./github/actions/build
 
       - name: ... buil success ...
         run: echo Building of node application is starting ..
 
       - name: ... check node version ...
         run: node -v 
+     
+      - name: ...check node and npm versions...
+        run:
+         npm -v
+         node -v
     
   deploy-dev:
     name: Deploy

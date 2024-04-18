@@ -1,0 +1,26 @@
+inputs:
+  port:
+    description: 'Port for node appliaction to run'
+    defaul: 1010
+  enviroment:
+    description: 'Eviroment for node application'
+    default: DEV'
+runs:
+  using: "composite"
+  steps:
+
+    - name: Start install
+      run: echo Building to ${{ inputs.enviroment }} is starting
+      shell: bash
+      
+    - name: install dependencies
+      run: npm install
+      shell: bash
+
+    - name: Install pm2
+      run: sudo npm install pm2
+      shell: bash
+
+    - name: Delete services
+      run: pm2 delete ${{ inputs.enviroment }}
+      shell: bash

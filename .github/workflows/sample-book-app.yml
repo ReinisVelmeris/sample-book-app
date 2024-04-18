@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./github/actions/build
+      - uses: actions/checkout@v3s
+      - uses: ./.github/actions/build
 
       - name: ... buil success ...
         run: echo Building of node application is starting ..

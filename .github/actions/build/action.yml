@@ -5,7 +5,7 @@ runs:
 
     - name: Start install
     run: echo Building of node application is starting
-   
+    shell: bash
     - name: install dependencies
     run: npm install
     shell: bash

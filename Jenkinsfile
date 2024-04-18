@@ -1,72 +1,79 @@
 pipeline {
     agent any
 
+    // tools {nodejs "nodejs"}
+
     stages {
         stage('Build') {
             steps {
-                script{
+                script {
                     build()
                 }
             }
         }
-        stage('Deploy to dev') {
+        stage('Deploy to DEV') {
             steps {
-                script{
+                script {
                     deploy("DEV", 1010)
                 }
             }
         }
-        stage('Test on DEV') {
+        stage('Tests on DEV') {
             steps {
-                script{
+                script {
                     test("DEV")
                 }
             }
         }
-        stage('Deploy to STG', 1020) {
+        stage('Deploy to STG') {
             steps {
-                script{
-                    deploy("STG")
-                }
+                script {
+                    deploy("STG", 1020)
+                }            
             }
         }
-        stage('Test on STG') {
+        stage('Tests on STG') {
             steps {
-                script{
+                script {
                     test("STG")
                 }
             }
         }
-        stage('Deploy to PROD', 1030) {
+        stage('Deploy to PRD') {
             steps {
-                script{
-                    deploy("PROD")
-                }
+                script {
+                    deploy("PRD", 1030)
+                }            
             }
         }
-        stage('Test on PROD') {
+        stage('Tests on PRD') {
             steps {
-                script{
-                    test("PROD")
+                script {
+                    test("PRD")
                 }
             }
         }
     }
 }
 
+// for win : bat "npm ..."
+// for mac/linux: sh "npm ..."
+
+def build(){
+    echo 'Building of node application is starting ..'
+    // sh 'npm config ls'
+    bat "ls"
+    bat "npm install"
+
+}
+
 def deploy(String enviroment, int port){
-    echo "Deploying to ${enviroment}"
+    echo "Deplyment to ${enviroment} has started .."
     bat "pm2 delete ${enviroment}"
-    bat "pm2 start -n \"${enviroment}\" index.js --${port}"
+    bat "pm2 start -n \"${enviroment}\" index.js -- ${port}"
 }
 
 def test(String enviroment){
-    echo "Testing on ${enviroment}"
+    echo "Testing on ${enviroment} has started .."
     bat "npm test"
-}
-
-def build(){
-    echo "Starting build"
-    bat "ls"
-    bat "npm install"
 }

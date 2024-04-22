@@ -46,8 +46,14 @@ jobs:
     needs: [deploy-dev]
 
     steps:
-      - name: ... tests success ...
-        run: echo Testing on DEV has started ..
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: 'ReinisVelmeris/api-automation'
+          path: 'api-tests'
+      - uses: ./.github/actions/test
+        with:
+          enviroment: 'DEV'
 
   deploy-stg:
     name: Deploy
